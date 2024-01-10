@@ -35,12 +35,9 @@ app.get("/posts/:pid", (req, res)=> {
 });
 
 
-app.post
-('/posts', function (req, res) {
+app.post('/posts', function (req, res) {
     const obj = req.body;
-    
-obj.id
- = dbData.length + 1;
+    obj.id = dbData.length + 1;
     dbData.push(obj);
     console.log(dbData.length);
     console.log(dbData[dbData.length - 1]);
