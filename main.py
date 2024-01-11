@@ -32,6 +32,16 @@ def create_user():
     asyncio.run(create_user_db())
     return {"message": "Post Completed"}
 
+@app.get("/update")
+def update_user():
+    asyncio.run(update_user_db())
+    return {"message": "Update Completed"}
+
+@app.get("/delete")
+def delete_user():
+    asyncio.run(delete_user_db())
+    return {"message": "Delete Completed"}
+
 
 async def read_user_db() -> None:
     db = Prisma()
@@ -63,5 +73,35 @@ async def create_user_db() -> None:
     found = await db.user.find_unique(where={'id': user.id})
     assert found is not None
     print(f'found user: {found.model_dump_json(indent=2)}')
+
+    await db.disconnect()
+
+async def update_user_db() -> None:
+    db = Prisma()
+    await db.connect()
+
+    user = await db.user.update(
+        where = {
+            'id': 11,
+        },
+        data = {
+            'email': 'ingi9936@gmail.com',
+            'name': 'ChInpard',
+        }
+    )
+    assert user is not None
+
+    await db.disconnect() 
+
+async def delete_user_db() -> None:
+    db = Prisma()
+    await db.connect()
+
+    user = await db.user.delete(
+        where = {
+            'id': 10,
+        }
+    )
+    assert user is not None
 
     await db.disconnect()
