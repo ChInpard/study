@@ -6,7 +6,7 @@ const port = 3000;
 const dbData = require("./dbData.js");
 
 app.use(cors({
-    origin: "http://127.0.0.1:5500/",
+    origin: "http://localhost:3000/",
     credentials: true,
     optionsSuccessStatus: 200,
 }));
@@ -42,7 +42,7 @@ app.post('/posts', function (req, res) {
     console.log(dbData.length);
     console.log(dbData[dbData.length - 1]);
     res.send(obj);
-  });
+});
 
 app.put('/posts/:pid', function (req, res) {
     const { pid } = req.params;
@@ -56,19 +56,19 @@ app.put('/posts/:pid', function (req, res) {
     console.log(dbData[pid - 1]);
     console.log(dbData[pid]);
     res.send(obj);
-  });
+});
 
 app.delete('/posts/:pid', function (req, res) {
     const { pid } = req.params;
-    const obj = dbData[pid - 1];
-    console.log(pid);
-    console.log(obj)
-    dbData.splice(pid - 1, 1);
-    console.log(dbData[pid - 2]);
-    console.log(dbData[pid - 1]);
-    console.log(dbData[pid]);
-    res.send(obj);
-  });
+    const indexToDelete = dbData.findIndex(item => item.id == pid);
+
+    if (indexToDelete !== -1) {
+        const deletedItem = dbData.splice(indexToDelete, 1)[0];
+        res.send(deletedItem);
+    } else {
+        res.status(404).send({ error: 'Not found' });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
