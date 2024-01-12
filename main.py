@@ -24,22 +24,22 @@ def hello():
 
 @app.get("/read")
 def read_user():
-    user = asyncio.run(read_user_db())
-    return user
+    users = asyncio.run(read_user_db())
+    return users
 
-@app.get("/create")
-def create_user():
-    asyncio.run(create_user_db())
+@app.post("/create")
+def create_user(data: dict):
+    asyncio.run(create_user_db(data))
     return {"message": "Post Completed"}
 
-@app.get("/update")
-def update_user():
-    asyncio.run(update_user_db())
+@app.put("/update/{user_id}")
+def update_user(user_id: int, data: dict):
+    asyncio.run(update_user_db(user_id, data))
     return {"message": "Update Completed"}
 
-@app.get("/delete")
-def delete_user():
-    asyncio.run(delete_user_db())
+@app.delete("/delete/{user_id}")
+def delete_user(user_id: int):
+    asyncio.run(delete_user_db(user_id))
     return {"message": "Delete Completed"}
 
 
@@ -47,25 +47,22 @@ async def read_user_db() -> None:
     db = Prisma()
     await db.connect()
 
-    user = await db.user.find_many(
-        where = {
-            'name': 'philip',
-        }
-    )
-    assert user is not None
-    # print(f'found user: {user.model_dump_json(indent=2)}')
-
-    return user
-    await db.disconnect()
+    users = await db.user.find_many()
     
-async def create_user_db() -> None:
+    assert users is not None
+
+    await db.disconnect()
+
+    return users
+    
+async def create_user_db(data: dict) -> None:
     db = Prisma()
     await db.connect()
 
     user = await db.user.create(
         {
-            'email': 'leeig0531@gmail.com',
-            'name': 'philip',
+            'email': data.get('email'),
+            'name': data.get('name'),
         }
     )
     print(f'created user: {user.model_dump_json(indent=2)}')
@@ -76,32 +73,42 @@ async def create_user_db() -> None:
 
     await db.disconnect()
 
-async def update_user_db() -> None:
+async def update_user_db(user_id: int, data: dict) -> None:
     db = Prisma()
     await db.connect()
 
-    user = await db.user.update(
-        where = {
-            'id': 17,
-        },
-        data = {
-            'email': 'ingi9936@gmail.com',
-            'name': 'ChInpard',
-        }
-    )
-    assert user is not None
+    user = await db.user.find_unique(where={'id': user_id})
+
+    if user: 
+        updated_user = await db.user.update(
+            where = {
+                'id': user_id,
+            },
+            data = {
+                'email': data.get('email', user.email),
+                'name': data.get('name', user.name),
+            }
+        )
+        print(f'updated user: {updated_user.model_dump_json(indent=2)}')
+    else:
+        print(f'User with id {user_id} not found')
+
 
     await db.disconnect() 
 
-async def delete_user_db() -> None:
+async def delete_user_db(user_id: int) -> None:
     db = Prisma()
     await db.connect()
 
-    user = await db.user.delete(
-        where = {
-            'id': 17,
-        }
-    )
-    assert user is not None
+    user = await db.user.find_unique(where={'id': user_id})
+    if user:
+        deleted_user = await db.user.delete(
+            where = {
+                'id': user_id,
+            }
+        )
+        print(f'deleted user: {deleted_user.model_dump_json(indent=2)}')
+    else:
+        print(f'User with id {user_id} not found')
 
     await db.disconnect()
