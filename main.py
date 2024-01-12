@@ -82,7 +82,7 @@ async def update_user_db() -> None:
 
     user = await db.user.update(
         where = {
-            'id': 11,
+            'id': 17,
         },
         data = {
             'email': 'ingi9936@gmail.com',
@@ -99,7 +99,7 @@ async def delete_user_db() -> None:
 
     user = await db.user.delete(
         where = {
-            'id': 10,
+            'id': 17,
         }
     )
     assert user is not None
