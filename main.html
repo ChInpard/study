@@ -23,7 +23,7 @@
     }
   </style>
   <body class="container">
-    <h1>REST API 방식의 Posting Server!</h1>
+    <h1>REST API 방식의 User DB 관리 프로그램</h1>
     <form>
         <div class="mb-3">
           <label for="inputId" class="form-label">Id</label>
@@ -63,7 +63,7 @@
             for (let i = 0; i < jsonData.length; i++) {
               let number = jsonData[i].id;
               let template = `
-                <section class="data-card">
+                <section class="data-card" style="width:50%"aria-describedby="emailHelp">
                   <h1 class="card-number">number : ${jsonData[i].id}</h1>
                   <div class="user-id d:none">id : ${jsonData[i].id}</div>
                   <p class="user-email d:none">
