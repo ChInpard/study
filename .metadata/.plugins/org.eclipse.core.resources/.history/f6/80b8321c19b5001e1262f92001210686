@@ -1,0 +1,26 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	let resultSection = document.querySelector("table tbody");
+
+	readButton.onclick = async (e)=>{
+		e.preventDefault();
+		let id = document.querySelector("input[name='id']").value;
+		
+		let response = await fetch(`/listdb/${id}`);
+		let jsonData;
+		if(response)
+			jsonData = await response.json();
+			
+		resultSection.innerHTML = "";
+		let template = `
+			<tr th:each="user : ${userKey}">
+                <td>|</td>
+                <td th:text="${user.id}"></td><td>|</td>
+                <td th:text="${user.name}"></td><td>|</td>
+                <td th:text="${user.email}"></td><td>|</td>
+            </tr>
+		`;
+			
+		resultSection.insertAdjacentElement("beforeend", template);
+	}
+})

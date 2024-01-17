@@ -1,0 +1,12 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	
+	readButton.onclick = async (e)=>{
+		e.preventDefault();
+		let id = 1;
+		
+		let response = await fetch(`/list/${id}`);
+		if(response)
+			console.log(id);
+	}
+})

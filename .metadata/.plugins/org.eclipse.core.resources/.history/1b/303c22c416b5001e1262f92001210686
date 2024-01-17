@@ -1,0 +1,4 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	console.log(readButton);
+})

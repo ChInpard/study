@@ -1,0 +1,15 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	
+	readButton.onclick = async (e)=>{
+		e.preventDefault();
+		let id = 1;
+		
+		let response = await fetch(`/listdb/${id}`);
+		let jsonData;
+		if(response){
+			jsonData = await response.json();
+      		console.log(jsonData);
+  		}
+	}
+})
