@@ -1,4 +1,0 @@
-window.addEventListener("load", function(){
-	let readButton = document.querySelector(".read-button");
-	console.log(readButton);
-})
