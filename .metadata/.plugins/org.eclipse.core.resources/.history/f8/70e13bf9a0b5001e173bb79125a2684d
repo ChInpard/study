@@ -1,0 +1,52 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	let resultSection = document.querySelector("table tbody");
+
+	readButton.onclick = async (e)=>{
+		e.preventDefault();
+		let id = document.querySelector("input[name='id']").value;
+		
+		let response = await fetch(`/list/${id}`);
+		let jsonData;
+		if(response)
+			jsonData = await response.json();
+			
+		resultSection.innerHTML = "";
+		let template = `
+			<form action="/list" method="get">
+				<div class="mb-3">
+					<label for="inputId" class="form-label">Id</label>
+					<input type="text" class="form-control" name="id" style="width:50%"aria-describedby="emailHelp">
+				</div>
+				<div class="mb-3">
+					<label for="inputName" class="form-label">Name</label>
+					<input type="text" class="form-control" name="name" style="width:50%"aria-describedby="emailHelp">
+				</div>
+				
+				<div class="mb-3">
+					<label for="inputEmail" class="form-label">Email</label>
+					<input type="email" class="form-control" name="email"
+							style="width:50%"aria-describedby="emailHelp">
+				</div>
+				<input class="read-button" type="submit" value="Read">
+			</form>
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>|</th>
+		                <th>ID</th><th>|</th>
+		                <th>NAME</th><th>|</th>
+		                <th>EMAIL</th><th>|</th>
+		            </tr>
+	        	</thead>
+			<tr>
+                <td>|</td>
+                <td>${jsonData.id}</td><td>|</td>
+                <td>${jsonData.name}</td><td>|</td>
+                <td>${jsonData.email}</td><td>|</td>
+            </tr>
+		`;
+			
+		resultSection.insertAdjacentHTML("beforeend", template);
+	}
+})

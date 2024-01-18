@@ -1,0 +1,92 @@
+window.addEventListener("load", function(){
+	let readButton = document.querySelector("form .read-button");
+	let resultSection = document.querySelector("table tbody");
+
+	readButton.onclick = async (e)=>{
+		e.preventDefault();
+		let id = document.querySelector("input[name='id']").value;
+		let name = document.querySelector("input[name='name']").value;
+		let email = document.querySelector("input[name='email']").value;
+		
+		let response = await fetch(`/listdb?id=${id}&name=${name}&email=${email}`);
+		
+		let jsonData;
+		
+		
+		if (id == null && name == null && email == null) {
+			if(response) {
+				jsonData = await response.json();
+				console.log(jsonData);
+			}
+			
+			resultSection.innerHTML = "";
+			for (let user of jsonData) {
+			   	let template = `
+			   		<tr>
+			            <td>|</td>
+			            <td>${user.id}</td><td>|</td>
+			            <td>${user.name}</td><td>|</td>
+			            <td>${user.email}</td><td>|</td>
+			        </tr>
+		        `;
+	    		resultSection.insertAdjacentHTML("beforeend", template);
+		    }
+		}
+		else if (id != null){
+			if(response) {
+				jsonData = await response.json();
+				console.log(jsonData);
+			}
+	        updateResultSection(resultSection, jsonData.id, jsonData.name, jsonData.email);
+        }
+	    else if (name != null) {
+			if(response) {
+				jsonData = await response.json();
+				console.log(jsonData);
+			}
+	    	updateResultSection(resultSection, jsonData.id, jsonData.name, jsonData.email);
+    	}
+	    else if (email != null) {
+			if(response) {
+				jsonData = await response.json();
+				console.log(jsonData);
+			}
+	    	updateResultSection(resultSection, jsonData.id, jsonData.name, jsonData.email);
+    	}
+	    	
+
+		
+		
+		resultSection.innerHTML = "";
+	   	let template = `
+	   		<tr>
+	            <td>|</td>
+	            <td>${jsonData.id}</td><td>|</td>
+	            <td>${jsonData.name}</td><td>|</td>
+	            <td>${jsonData.email}</td><td>|</td>
+	        </tr>
+        `;
+	    resultSection.insertAdjacentHTML("beforeend", template);
+		
+		
+	}
+	
+	function updateResultSection(resultSection, id, name, email) {
+	    resultSection.innerHTML = "";
+	   	let template = createTableRow(id, name, email);
+	    resultSection.insertAdjacentHTML("beforeend", template);
+	}
+	
+	/* function area */
+	function createTableRow(id, name, email) {
+		return `
+	        <tr>
+	            <td>|</td>
+	            <td>${id}</td><td>|</td>
+	            <td>${name}</td><td>|</td>
+	            <td>${email}</td><td>|</td>
+	        </tr>
+        `;
+	}
+		
+})
