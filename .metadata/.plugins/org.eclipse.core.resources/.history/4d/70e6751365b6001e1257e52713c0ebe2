@@ -40,7 +40,7 @@ public class HelloController {
 		return "user_list";
 	}
 	
-	@GetMapping("/users")
+	@GetMapping("/user/list")
 	@ResponseBody
 	public List<User> userList(Model model) {
 		List<User> userList = this.userRepository.findAll();
@@ -50,7 +50,7 @@ public class HelloController {
 		return userList;
 	}
 	
-	@GetMapping("/users/id/{id}")
+	@GetMapping("/user/id/{id}")
 	@ResponseBody
 	public Optional<User> userById(
 						@PathVariable("id") Integer id) {
@@ -61,7 +61,7 @@ public class HelloController {
 		return user;
 	}
 	
-	@GetMapping("/users/name/{name}")
+	@GetMapping("/user/name/{name}")
 	@ResponseBody
 	public Optional<User> userByName(
 						@PathVariable("name") String name) {
@@ -70,7 +70,7 @@ public class HelloController {
 		return user;
 	}
 	
-	@GetMapping("/users/email/{email}")
+	@GetMapping("/user/email/{email}")
 	@ResponseBody
 	public Optional<User> userByEmail(
 						@PathVariable("email") String email) {
@@ -79,7 +79,7 @@ public class HelloController {
 		return user;
 	}
 	
-	@PostMapping("/users")
+	@PostMapping("/userdb/create")
 	@ResponseBody
 	public User creadteUser(
 						@RequestBody User newUser) {
@@ -89,7 +89,7 @@ public class HelloController {
 		return createdUser;
 	}
 	
-	@PutMapping("/users/{id}")
+	@PutMapping("/update/{id}")
 	@ResponseBody
 	public User updateUser(
 						@PathVariable("id") Integer id,
@@ -112,7 +112,7 @@ public class HelloController {
 		}
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/delete/{id}")
 	@ResponseBody
 	public User deleteUser(
 						@PathVariable("id") Integer id) {

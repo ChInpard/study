@@ -13,14 +13,14 @@ async function getJsonData() {
 	const uemail = document.getElementById("input-email").value;
   
 	if (uid) {
-		const response = await fetch(`http://localhost:8080/users/id/${uid}`);
+		const response = await fetch(`http://localhost:8080/user/id/${uid}`);
 		const jsonData = await response.json();
 		console.log(jsonData);
 
 		renderDataCard(jsonData);
 	}
   	else if (uname) {
-	  	const response = await fetch(`http://localhost:8080/users/name/${uname}`);
+	  	const response = await fetch(`http://localhost:8080/user/name/${uname}`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -28,7 +28,7 @@ async function getJsonData() {
       	renderDataCard(jsonData);
   	}
   	else if (uemail) {
-	  	const response = await fetch(`http://localhost:8080/users/email/${uemail}`);
+	  	const response = await fetch(`http://localhost:8080/user/email/${uemail}`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -36,7 +36,7 @@ async function getJsonData() {
 	  	renderDataCard(jsonData);
   	}
   	else {
-	  	const response = await fetch(`http://localhost:8080/users`);
+	  	const response = await fetch(`http://localhost:8080/user/list`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -66,7 +66,7 @@ async function postJsonData() {
     const pemail = document.getElementById("input-email").value;
     const pname = document.getElementById("input-name").value;
       
-    const response = await fetch("http://localhost:8080/users", {
+    const response = await fetch("http://localhost:8080/userdb/create", {
 		method: "POST",
         headers: {
           "Content-Type" : "application/json"
@@ -88,7 +88,7 @@ async function putJsonData() {
     const pemail = document.getElementById("input-email").value;
     const pname = document.getElementById("input-name").value;
       
-    const response = await fetch(`http://localhost:8080/users/${pid}`, {
+    const response = await fetch(`http://localhost:8080/update/${pid}`, {
 		method: "PUT",
         headers: {
           "Content-Type" : "application/json"
@@ -109,7 +109,7 @@ async function deleteJsonData() {
 
     const pid = document.getElementById("input-id").value;
       
-    const response = await fetch(`http://localhost:8080/users/${pid}`, {
+    const response = await fetch(`http://localhost:8080/delete/${pid}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
