@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.models.OpenAPI"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.models.Components"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.models.info.Info"/>
+</qualifiedTypeNameHistroy>
