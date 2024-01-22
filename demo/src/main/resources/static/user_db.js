@@ -6,21 +6,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
       
 let resultSection = document.getElementById('json');
+const url = `http://localhost:8080/users`;
   
 async function getJsonData() {
 	const uid = document.getElementById("input-id").value;
 	const uname = document.getElementById("input-name").value;
 	const uemail = document.getElementById("input-email").value;
-  
+	
+	
 	if (uid) {
-		const response = await fetch(`http://localhost:8080/users/id/${uid}`);
+		const response = await fetch(`${url}/id/${uid}`);
 		const jsonData = await response.json();
 		console.log(jsonData);
 
 		renderDataCard(jsonData);
 	}
   	else if (uname) {
-	  	const response = await fetch(`http://localhost:8080/users/name/${uname}`);
+	  	const response = await fetch(`${url}/name/${uname}`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -28,7 +30,7 @@ async function getJsonData() {
       	renderDataCard(jsonData);
   	}
   	else if (uemail) {
-	  	const response = await fetch(`http://localhost:8080/users/email/${uemail}`);
+	  	const response = await fetch(`${url}/email/${uemail}`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -36,7 +38,7 @@ async function getJsonData() {
 	  	renderDataCard(jsonData);
   	}
   	else {
-	  	const response = await fetch(`http://localhost:8080/users`);
+	  	const response = await fetch(`${url}`);
 		
       	const jsonData = await response.json();
       	console.log(jsonData);
@@ -57,7 +59,7 @@ async function getJsonData() {
           		</section>
     		`;
 
-        	resultSection.insertAdjacentHTML("beforeend", template);
+    	resultSection.insertAdjacentHTML("beforeend", template);
       	}
   	}
 }
@@ -66,7 +68,7 @@ async function postJsonData() {
     const pemail = document.getElementById("input-email").value;
     const pname = document.getElementById("input-name").value;
       
-    const response = await fetch("http://localhost:8080/users", {
+    const response = await fetch(`${url}`, {
 		method: "POST",
         headers: {
           "Content-Type" : "application/json"
@@ -88,7 +90,7 @@ async function putJsonData() {
     const pemail = document.getElementById("input-email").value;
     const pname = document.getElementById("input-name").value;
       
-    const response = await fetch(`http://localhost:8080/users/${pid}`, {
+    const response = await fetch(`${url}/${pid}`, {
 		method: "PUT",
         headers: {
           "Content-Type" : "application/json"
@@ -109,7 +111,7 @@ async function deleteJsonData() {
 
     const pid = document.getElementById("input-id").value;
       
-    const response = await fetch(`http://localhost:8080/users/${pid}`, {
+    const response = await fetch(`${url}/${pid}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -128,7 +130,7 @@ async function deleteJsonData() {
 function createDataCardTemplate(jsonData) {
 	return `
 		<section class="data-card">
-		<h1 class="card-number">number : ${jsonData.id}</h1>
+			<h1 class="card-number">number : ${jsonData.id}</h1>
 		    <div class="user-id d:none">id : ${jsonData.id}</div>
 		    <p class="user-email d:none">
 		        email : ${jsonData.email}
