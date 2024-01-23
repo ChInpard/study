@@ -6,7 +6,7 @@ import com.example.demo.data.request.UserSearchRequest;
 
 public interface UserService {
 	
-	UserDTO getUser(Integer userId);
-	VipUser saveUser(UserSearchRequest request);
+	UserSearchRequest getUser(Integer userId);
+	VipUser saveUser(UserDTO userDTO);
 
 }

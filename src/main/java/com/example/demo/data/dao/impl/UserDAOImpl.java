@@ -28,10 +28,10 @@ public class UserDAOImpl implements UserDAO {
 	public VipUser saveUser(UserDTO userDTO) {
 		
 		VipUser user = new VipUser();
-		user.setUserId(userDTO.getId());
-		user.setUserName(userDTO.getName());
-		user.setUserAge(userDTO.getAge());
-		user.setAdult(userDTO.getAge() > 19 ? true : false);
+		user.setId(userDTO.getId());
+		user.setName(userDTO.getName());
+		user.setAge(userDTO.getAge());
+		user.setIsAdult(userDTO.getAge() > 19 ? true : false);
 		 
 		return this.userRepository.save(user);
 	}

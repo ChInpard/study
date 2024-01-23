@@ -11,8 +11,8 @@ import lombok.Setter;
 public class VipUser {
 
 	@Id
-	private Integer userId;
-	private String userName;
-	private Integer userAge;
-	private Boolean Adult;
+	private Integer id;
+	private String name;
+	private Integer age;
+	private Boolean isAdult;
 }

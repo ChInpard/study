@@ -9,5 +9,5 @@ public class UserSearchRequest {
 	
 	private Integer id;
     private String name;
-    private int age;
+    private Integer age;
 }

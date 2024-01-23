@@ -24,23 +24,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDTO getUser(Integer userId) {
+	public UserSearchRequest getUser(Integer userId) {
 		
 		UserSearchRequest request = new UserSearchRequest();
 		
 		VipUser user = userDataHandler.getUserEntity(userId);
 		
-		request.setId(user.getUserId());
-		request.setName(user.getUserName());
-		request.setAge(user.getUserAge());
+		request.setId(user.getId());
+		request.setName(user.getName());
+		request.setAge(user.getAge());
 		
-		return new UserDTO(request);
+		return request;
 	}
 	
 	@Override
-	public VipUser saveUser(UserSearchRequest request) {
-		
-		UserDTO userDTO = new UserDTO(request);
+	public VipUser saveUser(UserDTO userDTO) {
 		
 		return userDataHandler.saveUserEntity(userDTO);
 	}

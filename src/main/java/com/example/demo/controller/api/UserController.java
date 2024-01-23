@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import com.example.demo.data.dto.UserDTO;
 import com.example.demo.data.entity.VipUser;
 import com.example.demo.data.request.UserSearchRequest;
 
-@Controller
+@Controller("apiUserController")
 @RequestMapping("/user")
 public class UserController {
 	

@@ -7,6 +7,7 @@ import com.example.demo.data.dao.UserDAO;
 import com.example.demo.data.dto.UserDTO;
 import com.example.demo.data.entity.VipUser;
 import com.example.demo.data.handler.UserDataHandler;
+import com.example.demo.data.request.UserSearchRequest;
 
 @Service
 public class UserDataHandlerImpl implements UserDataHandler {
@@ -23,7 +24,7 @@ public class UserDataHandlerImpl implements UserDataHandler {
 		
 		return userDAO.getUser(userId);
 	}
-	
+
 	@Override
 	public VipUser saveUserEntity(UserDTO userDTO) {
 		
