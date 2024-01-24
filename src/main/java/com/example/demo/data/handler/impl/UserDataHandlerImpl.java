@@ -5,30 +5,32 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.data.dao.UserDAO;
 import com.example.demo.data.dto.UserDTO;
-import com.example.demo.data.entity.VipUser;
 import com.example.demo.data.handler.UserDataHandler;
-import com.example.demo.data.request.UserSearchRequest;
 
 @Service
 public class UserDataHandlerImpl implements UserDataHandler {
 	
-	private final UserDAO userDAO;
+	@Autowired
+	private UserDAO userDAO;
 	
 	@Autowired
-	public UserDataHandlerImpl(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
+	private UserDTO userDTO;
+	
 	
 	@Override
-	public VipUser getUserEntity(Integer userId) {
+	public UserDTO getUserData(Integer userId) {
 		
-		return userDAO.getUser(userId);
+		userDTO = userDAO.getUser(userId);
+		
+		return userDTO;
 	}
 
 	@Override
-	public VipUser saveUserEntity(UserDTO userDTO) {
+	public UserDTO saveUserEntity(UserDTO userDTO) {
 		
-		return userDAO.saveUser(userDTO);
+		userDTO = userDAO.saveUser(userDTO);
+		
+		return userDTO;
 	}
 
 }

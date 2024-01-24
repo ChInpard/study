@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/add_user.js" defer></script>
+</head>
+<body align="center">
+    <h1>사용자 등록 양식</h1>
+    <div align="center">
+        <form action="/users" method="post" th:object="${user}" onsubmit="submitForm(event)">
+        	<div>
+                <label th:for="id">ID : </label>
+                <input type="text" th:field="*{id}" placeholder="ID 입력"/>
+            </div> <br/>
+            
+            <div>
+                <label th:for="name">이름 : </label>
+                <input type="text" th:field="*{name}" placeholder="이름 입력"/>
+            </div> <br/>
+
+            <div>
+                <label th:for="age">나이 : </label>
+                <input type="text" th:field="*{age}" placeholder="나이 입력"/>
+            </div> <br/>
+
+            <div align="center">
+                <button type="button" th:onclick="|location.href='@{/user}'|">취소</button>
+                <button type="submit" style="margin-left: 30px">추가</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,9 +1,13 @@
 package com.example.demo.controller.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.service.UserService;
+import com.example.demo.data.dao.UserDAO;
 //import com.example.demo.data.dao.UserDAO;
 import com.example.demo.data.dto.UserDTO;
 import com.example.demo.data.entity.VipUser;
@@ -14,32 +18,57 @@ import com.example.demo.data.request.UserSearchRequest;
 @Service
 public class UserServiceImpl implements UserService {
 	
-//	private UserDAO userDAO;
+	@Autowired
 	private UserDataHandler userDataHandler;
 	
 	@Autowired
-	public UserServiceImpl(UserDataHandler userDataHandler) {
-//		this.userDAO = userDAO;
-		this.userDataHandler = userDataHandler;
-	}
+	private UserDAO userDAO;
+	
+	@Autowired
+	private UserDTO userDTO;
+	
+	@Autowired
+	private UserSearchRequest request;
+	
 	
 	@Override
 	public UserSearchRequest getUser(Integer userId) {
 		
-		UserSearchRequest request = new UserSearchRequest();
+		userDTO = userDataHandler.getUserData(userId);
 		
-		VipUser user = userDataHandler.getUserEntity(userId);
-		
-		request.setId(user.getId());
-		request.setName(user.getName());
-		request.setAge(user.getAge());
+		request.setId(userDTO.getId());
+		request.setName(userDTO.getName());
+		request.setAge(userDTO.getAge());
 		
 		return request;
 	}
 	
 	@Override
-	public VipUser saveUser(UserDTO userDTO) {
+	public UserSearchRequest saveUser(UserSearchRequest request) {
 		
-		return userDataHandler.saveUserEntity(userDTO);
+		userDTO.setId(request.getId());
+		userDTO.setName(request.getName());
+		userDTO.setAge(request.getAge());
+		
+		userDTO = userDataHandler.saveUserEntity(userDTO);
+		
+		request.setId(userDTO.getId());
+		request.setName(userDTO.getName());
+		request.setAge(userDTO.getAge());
+		
+		return request;
 	}
+
+	@Override
+	public List<VipUser> getUserList() {
+		
+		return userDAO.getList();
+	}
+
+	@Override
+	public Optional<VipUser> getById(Integer id) {
+		
+		return userDAO.getById(id);
+	}
+
 }
